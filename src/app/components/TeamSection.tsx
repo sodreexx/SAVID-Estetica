@@ -6,7 +6,7 @@ const professionals = [
     name: 'Dr.ª Giselle Lourenço',
     title: 'Enfermeira Dermatológica · Estética Avançada',
     specialty: 'Harmonização Facial · Corporal · 18 anos de experiência',
-    photo: '/src/imports/IMG_5846.JPG.jpeg',
+    photo: '/images/team-giselle.jpeg',
     bio: 'Com 18 anos de trajetória na área da saúde e pós-graduada em Estética Avançada e Enfermagem Dermatológica, ofereço um olhar clínico refinado e técnico para o setor da beleza. Especialista em harmonização facial e corporal, atuo há 6 anos transformando a vida de meus pacientes através de tratamentos personalizados.\n\nAcredito que a estética de excelência é aquela que respeita a identidade de cada indivíduo. Por isso, minha prática é pautada na atualização constante e na dedicação integral em cuidar de vidas, entregando resultados que elevam a autoconfiança com segurança e ética profissional.',
     whatsapp: 'https://wa.me/5521972668520?text=Olá! Gostaria de agendar uma consulta com a Dr.ª Giselle.',
     accentColor: '#D4AF37',
@@ -17,7 +17,7 @@ const professionals = [
     name: 'Thyago Lima',
     title: 'Especialista em Micropigmentação & Camuflagem',
     specialty: 'Micropigmentação · Camuflagem · 16 anos de experiência',
-    photo: '/src/imports/IMG_9942.JPG.jpeg',
+    photo: '/images/team-thyago.jpeg',
     bio: 'Minha trajetória na estética começou há mais de 12 anos, de forma simples, com o design em henna. No entanto, minha inquietude e o desejo de entregar resultados mais profundos me guiaram para as novas tecnologias do setor. Hoje, sou especialista em Micropigmentação, Camuflagem de Cicatrizes e Regeneração de Fios — procedimentos que vão além da estética, devolvendo a identidade e a confiança a cada cliente.\n\nCom a marca de mais de 10 mil atendimentos realizados, sinto que minha missão está apenas começando. Atualmente, curso graduação na área da saúde para fundamentar ainda mais minha prática com base científica e segurança.',
     whatsapp: 'https://wa.me/5521972668520?text=Olá! Gostaria de agendar uma consulta com o Thyago.',
     accentColor: '#8DAA91',
@@ -28,7 +28,7 @@ const professionals = [
     name: 'Marcos Galdino',
     title: 'Esteticista & Massoterapeuta',
     specialty: 'Rejuvenescimento · Terapias Corporais · 16 anos de experiência',
-    photo: '/src/imports/IMG_6281.JPG.jpeg',
+    photo: '/images/team-marcos.jpeg',
     bio: 'Minha trajetória começou ainda aos 13 anos de idade, quando iniciei minha formação como cabeleireiro. Ao longo de 15 anos nessa profissão, tive o privilégio de contribuir para a autoestima e confiança de inúmeras mulheres, proporcionando não apenas beleza, mas também bem-estar emocional.\n\nMovido pelo desejo de ampliar meu cuidado com as pessoas, há mais de 5 anos direcionei minha carreira para a estética e a massoterapia. Hoje, meu trabalho é focado em promover saúde e qualidade de vida, com tratamentos avançados para rejuvenescimento da pele e terapias corporais para redução do estresse e da ansiedade.',
     whatsapp: 'https://wa.me/5521972668520?text=Olá! Gostaria de agendar uma consulta com o Marcos.',
     accentColor: '#D4AF37',
@@ -89,11 +89,41 @@ export function TeamSection() {
           />
         </div>
 
-        {/* Cards grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+        {/* Cards Container - Carousel on Mobile, Grid on Desktop */}
+        <div 
+          id="equipe-carousel"
+          className="flex md:grid md:grid-cols-3 gap-6 md:gap-8 items-stretch overflow-x-auto md:overflow-x-visible snap-x snap-mandatory md:snap-none pb-8 md:pb-0 -mx-4 px-4 md:mx-0 md:px-0"
+          style={{
+            scrollbarWidth: 'none',
+            msOverflowStyle: 'none',
+          }}
+        >
+          <style>{`
+            #equipe-carousel::-webkit-scrollbar { display: none; }
+          `}</style>
+          
           {professionals.map((pro, index) => (
-            <ProfessionalCard key={pro.id} pro={pro} index={index} />
+            <div 
+              key={pro.id} 
+              className="flex-shrink-0 w-[85%] sm:w-[70%] md:w-full snap-center"
+            >
+              <ProfessionalCard pro={pro} index={index} />
+            </div>
           ))}
+        </div>
+
+        {/* Mobile Scroll Indicator */}
+        <div className="flex md:hidden justify-center items-center gap-2 mt-2">
+          {professionals.map((_, i) => (
+            <div 
+              key={i}
+              className="w-1.5 h-1.5 rounded-full bg-gray-300"
+              style={{ opacity: 0.5 }}
+            />
+          ))}
+          <span className="ml-2 text-[10px] uppercase tracking-widest text-gray-400 font-medium">
+            Arraste para o lado
+          </span>
         </div>
       </div>
     </section>

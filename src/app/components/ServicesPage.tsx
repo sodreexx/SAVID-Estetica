@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 
@@ -124,28 +125,44 @@ export function ServicesPage() {
     }
 
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+      const scrollPos = window.scrollY;
+      setScrolled(scrollPos > 50);
 
-      // Update active category based on scroll position
-      const offsets = categories.map(cat => {
+      // Encontrar a categoria que está mais próxima do topo (considerando o header fixo)
+      const offsetMargin = 160; 
+      let current = categories[0].id;
+
+      for (const cat of categories) {
         const el = categoryRefs.current[cat.id];
-        if (!el) return { id: cat.id, top: Infinity };
-        const rect = el.getBoundingClientRect();
-        return { id: cat.id, top: rect.top };
-      });
-
-      const visible = offsets
-        .filter(o => o.top < 200)
-        .sort((a, b) => b.top - a.top);
-
-      if (visible.length > 0) {
-        setActiveCategory(visible[0].id);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          // Se o topo da seção passou da nossa margem de segurança, ela é a ativa
+          if (rect.top <= offsetMargin) {
+            current = cat.id;
+          }
+        }
       }
+      
+      setActiveCategory(current);
     };
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Efeito para rolar a aba ativa para o centro do menu horizontal
+  useEffect(() => {
+    if (activeCategory && tabsRef.current) {
+      const activeTabEl = tabsRef.current.querySelector(`[data-id="${activeCategory}"]`);
+      if (activeTabEl) {
+        activeTabEl.scrollIntoView({
+          behavior: 'smooth',
+          block: 'nearest',
+          inline: 'center'
+        });
+      }
+    }
+  }, [activeCategory]);
 
   const scrollToCategory = (id: string) => {
     const el = categoryRefs.current[id];
@@ -159,6 +176,16 @@ export function ServicesPage() {
 
   return (
     <div style={{ background: '#FAFAF8', minHeight: '100vh', fontFamily: 'var(--font-sans)' }}>
+      <Helmet>
+        <title>Nossos Serviços — Savid Maricá | Estética e Harmonização Facial</title>
+        <meta
+          name="description"
+          content="Conheça todos os 50 procedimentos estéticos da Savid Maricá: harmonização facial, botox, micropigmentação, tratamentos de pele, estética corporal e muito mais em Maricá, RJ."
+        />
+        <meta property="og:title" content="Nossos Serviços — Savid Maricá" />
+        <meta property="og:description" content="50 procedimentos estéticos disponíveis: harmonização facial, micropigmentação, tratamentos de pele e estética corporal em Maricá, RJ." />
+        <meta property="og:url" content="https://savid.com.br/servicos" />
+      </Helmet>
 
       {/* ── Navbar ── */}
       <nav
@@ -173,7 +200,7 @@ export function ServicesPage() {
           borderBottom: scrolled ? '1px solid rgba(212,175,55,0.15)' : 'none',
         }}
       >
-        <div className="max-w-7xl mx-auto px-4 lg:px-6 h-16 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-4 lg:px-6 h-14 md:h-16 flex items-center justify-between">
           {/* Back button */}
           <button
             onClick={() => navigate('/')}
@@ -200,9 +227,9 @@ export function ServicesPage() {
             onClick={() => navigate('/')}
           >
             <img
-              src="/src/imports/Design_sem_nome_(8)-1.png"
+              src="/images/logo-savid.png"
               alt="Savid Logo"
-              className="h-16 w-auto object-contain"
+              className="h-9 md:h-14 w-auto object-contain"
             />
           </div>
 
@@ -229,7 +256,7 @@ export function ServicesPage() {
       <section className="relative pt-16 overflow-hidden" style={{ height: 'clamp(300px, 50vw, 480px)' }}>
         <div className="absolute inset-0">
           <ImageWithFallback
-            src="/src/imports/IMG_0039.JPG"
+            src="/images/hero-servicos.jpg"
             alt="Serviços Savid Maricá"
             className="w-full h-full object-cover object-top"
           />
@@ -285,7 +312,6 @@ export function ServicesPage() {
 
       {/* ── Sticky Category Tabs ── */}
       <div
-        ref={tabsRef}
         className="sticky z-40 transition-all duration-300"
         style={{
           top: '64px',
@@ -296,10 +322,14 @@ export function ServicesPage() {
         }}
       >
         <div className="max-w-7xl mx-auto px-3 lg:px-6">
-          <div className="flex items-stretch overflow-x-auto scrollbar-hide">
+          <div 
+            ref={tabsRef}
+            className="flex items-stretch overflow-x-auto scrollbar-hide"
+          >
             {categories.map((cat) => (
               <button
                 key={cat.id}
+                data-id={cat.id}
                 onClick={() => scrollToCategory(cat.id)}
                 className="relative flex-shrink-0 px-6 py-4 transition-all duration-300"
                 style={{

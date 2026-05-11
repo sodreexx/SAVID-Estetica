@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 import { TeamSection } from "../components/TeamSection";
@@ -91,10 +92,21 @@ export default function HomePage() {
       className="min-h-screen bg-white"
       style={{ fontFamily: "var(--font-sans)" }}
     >
+      <Helmet>
+        <title>Savid Maricá — Clínica de Estética e Harmonização Facial</title>
+        <meta
+          name="description"
+          content="Clínica de estética em Maricá especializada em harmonização facial, micropigmentação, tratamentos de pele e procedimentos estéticos avançados. Mais de 1.200 clientes atendidas. Agende sua consulta."
+        />
+        <meta property="og:title" content="Savid Maricá — Clínica de Estética e Harmonização Facial" />
+        <meta property="og:description" content="Tratamentos estéticos personalizados com tecnologia de ponta em Maricá, RJ. Mais de 1.200 clientes atendidas." />
+        <meta property="og:url" content="https://savid.com.br/" />
+      </Helmet>
+
       {/* Floating Header */}
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled ? "py-4" : "py-6"
+          scrolled ? "py-2 md:py-4" : "py-2 md:py-5"
         }`}
         style={{ animation: "slideDown 0.8s ease-out" }}
       >
@@ -104,13 +116,13 @@ export default function HomePage() {
             border: "1px solid rgba(212, 175, 55, 0.2)",
           }}
         >
-          <div className="flex items-center justify-between py-4 px-8 m-[0px]">
+          <div className="flex items-center justify-between py-2 px-4 md:py-4 md:px-8 m-[0px]">
             {/* Logo */}
             <div className="flex items-center gap-3">
               <img
-                src="/src/imports/Design_sem_nome_(8)-1.png"
+                src="/images/logo-savid.png"
                 alt="Savid Maricá Logo"
-                className="h-24 w-auto object-contain m-[0px]"
+                className="h-10 md:h-16 w-auto object-contain m-[0px]"
               />
             </div>
 
@@ -119,6 +131,7 @@ export default function HomePage() {
               {[
                 { label: "Home", target: "hero" },
                 { label: "Serviços", target: "servicos" },
+                { label: "Equipe", target: "equipe" },
                 { label: "Sobre", target: "sobre" },
                 { label: "Contato", target: "contato" },
               ].map((item) => (
@@ -235,7 +248,7 @@ export default function HomePage() {
           <div
             className="md:hidden overflow-hidden transition-all duration-400"
             style={{
-              maxHeight: mobileMenuOpen ? "320px" : "0",
+              maxHeight: mobileMenuOpen ? "400px" : "0",
             }}
           >
             <div
@@ -245,6 +258,7 @@ export default function HomePage() {
               {[
                 { label: "Home", target: "hero" },
                 { label: "Serviços", target: "servicos" },
+                { label: "Equipe", target: "equipe" },
                 { label: "Sobre", target: "sobre" },
                 { label: "Contato", target: "contato" },
               ].map((item) => (
@@ -254,6 +268,8 @@ export default function HomePage() {
                     setMobileMenuOpen(false);
                     if (item.target === "hero") {
                       window.scrollTo({ top: 0, behavior: "smooth" });
+                    } else if (item.target === "servicos") {
+                      navigate("/servicos");
                     } else {
                       const el = document.getElementById(item.target);
                       if (el) el.scrollIntoView({ behavior: "smooth" });
@@ -819,7 +835,7 @@ export default function HomePage() {
                   }}
                 >
                   <img
-                    src="/src/imports/Black_Modern_Gradient_Programmer_Presentation_(5).png"
+                    src="/images/hero-apresentacao.png"
                     alt="Professional team portrait"
                     className="w-full h-full object-cover object-top"
                   />
@@ -1222,7 +1238,7 @@ export default function HomePage() {
           {/* Left — full-bleed image */}
           <div className="relative overflow-hidden min-h-[280px] sm:min-h-[380px] lg:min-h-0">
             <ImageWithFallback
-              src="/src/imports/IMG_9944.JPG-2.jpeg"
+              src="/images/clinica-ambiente.jpeg"
               alt="Interior da clínica"
               className="absolute inset-0 w-full h-full object-cover object-[center_15%]"
             />
@@ -1435,7 +1451,7 @@ export default function HomePage() {
             {/* Left - Portrait — hidden on mobile to save space */}
             <div className="relative h-[260px] sm:h-[360px] lg:h-auto">
               <img
-                src="/src/imports/IMG_9950.JPG.jpeg"
+                src="/images/clinica-procedimento.jpeg"
                 alt="Nossa equipe"
                 className="w-full h-full object-cover object-top"
               />
@@ -1909,7 +1925,7 @@ export default function HomePage() {
             {/* Logo */}
             <div className="flex items-center gap-3">
               <img
-                src="/src/imports/Design_sem_nome_(8)-2.png"
+                src="/images/logo-savid-alt.png"
                 alt="Savid Maricá Logo"
                 className="h-20 w-auto object-contain"
               />
@@ -1927,7 +1943,7 @@ export default function HomePage() {
                 aria-label="Instagram"
               >
                 <img
-                  src="/src/imports/Descargar_icono_de_la_aplicación_de_instagram_render_3d.jpg"
+                  src="/images/icon-instagram.jpg"
                   alt="Instagram"
                   className="w-full h-full object-cover"
                 />
