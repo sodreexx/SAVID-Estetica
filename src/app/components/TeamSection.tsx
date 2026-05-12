@@ -105,7 +105,7 @@ export function TeamSection() {
           {professionals.map((pro, index) => (
             <div 
               key={pro.id} 
-              className="flex-shrink-0 w-[85%] sm:w-[70%] md:w-full snap-center"
+              className="flex-shrink-0 w-[85%] sm:w-[70%] md:w-full snap-center flex"
             >
               <ProfessionalCard pro={pro} index={index} />
             </div>
@@ -139,7 +139,7 @@ function ProfessionalCard({
 }) {
   return (
     <div
-      className="group flex flex-col"
+      className="group flex flex-col h-full w-full"
       style={{
         borderRadius: '24px',
         overflow: 'hidden',
@@ -243,6 +243,9 @@ function ProfessionalCard({
             color: pro.accentColor,
             letterSpacing: '0.04em',
             textTransform: 'uppercase',
+            minHeight: '2.75rem',
+            display: 'flex',
+            alignItems: 'center',
           }}
         >
           {pro.title}

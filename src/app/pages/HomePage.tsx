@@ -106,7 +106,7 @@ export default function HomePage() {
       {/* Floating Header */}
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled ? "py-2 md:py-4" : "py-2 md:py-5"
+          scrolled ? "py-3 md:py-[22px]" : "py-3 md:py-[30px]"
         }`}
         style={{ animation: "slideDown 0.8s ease-out" }}
       >
@@ -116,13 +116,13 @@ export default function HomePage() {
             border: "1px solid rgba(212, 175, 55, 0.2)",
           }}
         >
-          <div className="flex items-center justify-between py-2 px-4 md:py-4 md:px-8 m-[0px]">
+          <div className="flex items-center justify-between py-3 px-4 md:py-[22px] md:px-8 m-[0px]">
             {/* Logo */}
             <div className="flex items-center gap-3">
               <img
-                src="/images/logo-savid.png"
+                src="/src/imports/Design_sem_nome_(8)-1.png"
                 alt="Savid Maricá Logo"
-                className="h-10 md:h-16 w-auto object-contain m-[0px]"
+                className="h-14 md:h-24 w-auto object-contain m-[0px]"
               />
             </div>
 
@@ -149,10 +149,10 @@ export default function HomePage() {
                         const el = document.getElementById(
                           item.target,
                         );
-                        if (el)
-                          el.scrollIntoView({
-                            behavior: "smooth",
-                          });
+                        if (el) {
+                          const y = el.getBoundingClientRect().top + window.scrollY - 130;
+                          window.scrollTo({ top: y, behavior: 'smooth' });
+                        }
                       }
                     }}
                     className="relative text-sm tracking-wide pb-1"
@@ -248,7 +248,7 @@ export default function HomePage() {
           <div
             className="md:hidden overflow-hidden transition-all duration-400"
             style={{
-              maxHeight: mobileMenuOpen ? "400px" : "0",
+              maxHeight: mobileMenuOpen ? "420px" : "0",
             }}
           >
             <div
@@ -272,7 +272,10 @@ export default function HomePage() {
                       navigate("/servicos");
                     } else {
                       const el = document.getElementById(item.target);
-                      if (el) el.scrollIntoView({ behavior: "smooth" });
+                      if (el) {
+                        const y = el.getBoundingClientRect().top + window.scrollY - 110;
+                        window.scrollTo({ top: y, behavior: 'smooth' });
+                      }
                     }
                   }}
                   className="text-left py-3 w-full"
@@ -1927,7 +1930,7 @@ export default function HomePage() {
               <img
                 src="/images/logo-savid-alt.png"
                 alt="Savid Maricá Logo"
-                className="h-20 w-auto object-contain"
+                className="h-32 md:h-40 w-auto object-contain"
               />
             </div>
 
@@ -1935,7 +1938,7 @@ export default function HomePage() {
             <div className="flex gap-6">
               <a
                 href="#"
-                className="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 overflow-hidden"
+                className="w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 overflow-hidden"
                 style={{
                   border: "1px solid var(--color-sage)",
                   background: "transparent",
@@ -1945,26 +1948,34 @@ export default function HomePage() {
                 <img
                   src="/images/icon-instagram.jpg"
                   alt="Instagram"
-                  className="w-full h-full object-cover"
+                  className="w-[90%] h-[90%] object-contain"
+                  loading="lazy"
+                  decoding="async"
                 />
               </a>
-              {["Facebook", "WhatsApp"].map((social) => (
-                <a
-                  key={social}
-                  href="#"
-                  className="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
-                  style={{
-                    border: "1px solid var(--color-sage)",
-                    color: "var(--color-sage-dark)",
+              <a
+                href="https://wa.me/5521972668520"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 overflow-hidden"
+                style={{
+                  border: "1px solid var(--color-sage)",
+                  background: "transparent",
+                }}
+                aria-label="WhatsApp"
+              >
+                <img
+                  src="/images/icon-whatsapp.jpg"
+                  alt="WhatsApp"
+                  className="w-[125%] h-[125%] object-contain"
+                  loading="lazy"
+                  decoding="async"
+                  onError={(e) => {
+                    // Fallback se a imagem não existir ainda
+                    (e.target as HTMLImageElement).style.opacity = '0';
                   }}
-                  aria-label={social}
-                >
-                  <span style={{ fontSize: "1.25rem" }}>
-                    {social === "Facebook" && "f"}
-                    {social === "WhatsApp" && "💬"}
-                  </span>
-                </a>
-              ))}
+                />
+              </a>
             </div>
 
             {/* Copyright */}
