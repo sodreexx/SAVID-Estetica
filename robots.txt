@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://savid.com.br/sitemap.xml
