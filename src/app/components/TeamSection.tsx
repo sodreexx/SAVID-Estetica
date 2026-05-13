@@ -163,6 +163,10 @@ function ProfessionalCard({
           src={pro.photo}
           alt={`Foto de ${pro.name}`}
           className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+          width="400"
+          height="533"
+          loading="lazy"
+          decoding="async"
         />
 
         {/* Gradient overlay at bottom */}

@@ -841,6 +841,10 @@ export default function HomePage() {
                     src="/images/hero-apresentacao.png"
                     alt="Professional team portrait"
                     className="w-full h-full object-cover object-top"
+                    width="600"
+                    height="600"
+                    fetchPriority="high"
+                    decoding="async"
                   />
                 </div>
               </div>
@@ -1244,6 +1248,10 @@ export default function HomePage() {
               src="/images/clinica-ambiente.jpeg"
               alt="Interior da clínica"
               className="absolute inset-0 w-full h-full object-cover object-[center_15%]"
+              width="800"
+              height="600"
+              loading="lazy"
+              decoding="async"
             />
             <div
               className="absolute inset-y-0 right-0 w-24 hidden lg:block"
