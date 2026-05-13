@@ -17,7 +17,7 @@ export default function HomePage() {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
     };
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () =>
       window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -25,10 +25,14 @@ export default function HomePage() {
   const handleHeroMouseMove = (
     e: React.MouseEvent<HTMLElement>,
   ) => {
-    const rect = e.currentTarget.getBoundingClientRect();
+    if (!heroRef.current) return;
+    const rect = heroRef.current.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width - 0.5;
     const y = (e.clientY - rect.top) / rect.height - 0.5;
-    setMousePos({ x, y });
+    
+    requestAnimationFrame(() => {
+      setMousePos({ x, y });
+    });
   };
 
   const handleHeroMouseLeave = () => {
@@ -838,7 +842,7 @@ export default function HomePage() {
                   }}
                 >
                   <img
-                    src="/images/hero-apresentacao.png"
+                    src="/images/hero-apresentacao.webp"
                     alt="Professional team portrait"
                     className="w-full h-full object-cover object-top"
                     width="600"
@@ -1245,7 +1249,7 @@ export default function HomePage() {
           {/* Left — full-bleed image */}
           <div className="relative overflow-hidden min-h-[280px] sm:min-h-[380px] lg:min-h-0">
             <ImageWithFallback
-              src="/images/clinica-ambiente.jpeg"
+              src="/images/clinica-ambiente.webp"
               alt="Interior da clínica"
               className="absolute inset-0 w-full h-full object-cover object-[center_15%]"
               width="800"
@@ -1462,7 +1466,7 @@ export default function HomePage() {
             {/* Left - Portrait — hidden on mobile to save space */}
             <div className="relative h-[260px] sm:h-[360px] lg:h-auto">
               <img
-                src="/images/clinica-procedimento.jpeg"
+                src="/images/clinica-procedimento.webp"
                 alt="Nossa equipe"
                 className="w-full h-full object-cover object-top"
               />
@@ -1936,7 +1940,7 @@ export default function HomePage() {
             {/* Logo */}
             <div className="flex items-center gap-3">
               <img
-                src="/images/logo-savid-alt.png"
+                src="/images/logo-savid-alt.webp"
                 alt="Savid Maricá Logo"
                 className="h-32 md:h-40 w-auto object-contain"
               />
@@ -1954,7 +1958,7 @@ export default function HomePage() {
                 aria-label="Instagram"
               >
                 <img
-                  src="/images/icon-instagram.jpg"
+                  src="/images/icon-instagram.webp"
                   alt="Instagram"
                   className="w-[90%] h-[90%] object-contain"
                   loading="lazy"
@@ -1973,7 +1977,7 @@ export default function HomePage() {
                 aria-label="WhatsApp"
               >
                 <img
-                  src="/images/icon-whatsapp.jpg"
+                  src="/images/icon-whatsapp.webp"
                   alt="WhatsApp"
                   className="w-[125%] h-[125%] object-contain"
                   loading="lazy"

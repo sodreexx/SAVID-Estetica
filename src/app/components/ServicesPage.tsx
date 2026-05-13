@@ -227,7 +227,7 @@ export function ServicesPage() {
             onClick={() => navigate('/')}
           >
             <img
-              src="/images/logo-savid.png"
+              src="/images/logo-savid.webp"
               alt="Savid Logo"
               className="h-9 md:h-14 w-auto object-contain"
             />
@@ -256,7 +256,7 @@ export function ServicesPage() {
       <section className="relative pt-16 overflow-hidden" style={{ height: 'clamp(300px, 50vw, 480px)' }}>
         <div className="absolute inset-0">
           <ImageWithFallback
-            src="/images/hero-servicos.jpg"
+            src="/images/hero-servicos.webp"
             alt="Serviços Savid Maricá"
             className="w-full h-full object-cover object-top"
           />
