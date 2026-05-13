@@ -742,8 +742,8 @@ export default function HomePage() {
                 style={{ borderTop: "1px solid rgba(212,175,55,0.18)" }}
               >
                 {[
-                  { number: "1.200+", label: "Clientes Atendidas" },
-                  { number: "8 Anos", label: "de Experiência" },
+                  { number: "30.000+", label: "Clientes Atendidas" },
+                  { number: "14 Anos", label: "de Experiência" },
                   { number: "4.9 ★", label: "Avaliação Média" },
                 ].map((stat) => (
                   <div key={stat.label} className="flex flex-col gap-0.5">
